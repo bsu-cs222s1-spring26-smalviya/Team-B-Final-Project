@@ -130,7 +130,7 @@ public class RhymingWords extends Application{
 
         scoreBox.setText("Score: "+score);
 
-        //go to the Next question
+        //Next question
         if(!isFinished()){
 
             o1.setOnAction(e -> nextQuestion(questionBox, scoreBox, o1, o2, o3, layout));
