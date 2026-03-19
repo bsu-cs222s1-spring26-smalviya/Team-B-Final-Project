@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 
-public class RhymingWords extends Application{
+public class RhymingWords {
 
     // Game variables
     int currentQuestion = 0;
@@ -42,17 +42,10 @@ public class RhymingWords extends Application{
 
     int[] correctAnswers = {1,0,0,0,0,0,0,0,0,0,0,0};
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        show(primaryStage);
-    }
+
 
     public void show(Stage primaryStage){
         Pane layout = new Pane();
-        //start button
         Button startButton = new Button ("Start Game");
 
         startButton.setStyle("-fx-font-size: 20px; -fx-background-color: pink;");

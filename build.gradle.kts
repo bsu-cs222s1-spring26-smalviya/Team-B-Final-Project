@@ -12,18 +12,20 @@ repositories {
 }
 
 javafx {
-    version = "23"
-    modules = listOf("javafx.controls", "javafx.fxml", "javafx.media", "javafx.graphics")
+    version = "23.0.1"  // Be more specific with version
+    modules = listOf(
+        "javafx.controls",
+        "javafx.fxml",
+        "javafx.media",
+        "javafx.graphics",
+        "javafx.web"  // Added for completeness
+    )
 }
 
 dependencies {
-
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
 }
 
 application {
@@ -32,8 +34,4 @@ application {
 
 tasks.test {
     useJUnitPlatform()
-
-
-    testClassesDirs = sourceSets.test.get().output.classesDirs
-    classpath = sourceSets.test.get().runtimeClasspath
 }
