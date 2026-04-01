@@ -144,7 +144,7 @@ public class ListenAndChoose {
     }
 
     private void constructStage(Stage stage) {
-        stage.setTitle("Listen And Choose");
+        stage.setTitle("Dreamleaf Learning - Listen And Choose");
         Pane layout = new Pane();
         GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
         layout.getChildren().add(returnButton);

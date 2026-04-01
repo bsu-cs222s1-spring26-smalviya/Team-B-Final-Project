@@ -104,7 +104,7 @@ public class RhymingWords {
         GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
         Scene scene = new Scene(layout, 1400, 750);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Rhyming Words");
+        primaryStage.setTitle("Dreamleaf Learning - Rhyming Words");
         primaryStage.show();
     }
     //Handle answer

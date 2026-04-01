@@ -11,7 +11,7 @@ public class MixedSentence{
     Button button = new Button();
 
     public void show(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Mixed Sentences");
+        primaryStage.setTitle("Dreamleaf Learning - Mixed Sentences");
         button.setText("Click me");
         Pane layout = new Pane();
 

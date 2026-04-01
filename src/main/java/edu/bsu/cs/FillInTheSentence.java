@@ -9,7 +9,7 @@ public class FillInTheSentence{
     Button button = new Button();
 
     public void show(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Fill In The Sentence");
+        primaryStage.setTitle("Dreamleaf Learning - Fill In The Sentence");
         button.setText("Click me");
         Pane layout = new Pane();
 

@@ -15,64 +15,68 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Main Menu");
+        primaryStage.setTitle("Dreamleaf Learning - Main Menu");
 
-        Image image10 = new Image("/icons/dreamleaf-logo.png");
-        ImageView imageView10 = new ImageView(image10);
-        imageView10.setFitWidth(600);
-        imageView10.setFitHeight(150);
-        imageView10.setX(50);
-        imageView10.setY(50);
+        Image logoImg = new Image("/icons/dreamleaf-logo.png");
+        ImageView logoImgView = new ImageView(logoImg);
+        logoImgView.setFitWidth(600);
+        logoImgView.setFitHeight(150);
+        logoImgView.setX(50);
+        logoImgView.setY(50);
 
-        Image image = new Image("/icons/pink-cloud-button.png");
-        ImageView imageView1 = new ImageView(image);
-        imageView1.setFitWidth(150);
-        imageView1.setFitHeight(75);
+        Image fillSentenceIconImg = new Image("/icons/fill-sentence-icon.png");
+        ImageView imageView1 = new ImageView(fillSentenceIconImg);
+        imageView1.setFitWidth(400);
+        imageView1.setFitHeight(90);
         Button FillInTheSentenceButton = new Button();
         FillInTheSentenceButton.setGraphic(imageView1);
-        FillInTheSentenceButton.setLayoutX(200);
-        FillInTheSentenceButton.setLayoutY(200);
+        FillInTheSentenceButton.setLayoutX(800);
+        FillInTheSentenceButton.setLayoutY(160);
 
-        ImageView imageView2 = new ImageView(image);
-        imageView2.setFitHeight(75);
-        imageView2.setFitWidth(150);
+        Image rhymingWordsImg = new Image("/icons/rhyming-icon.png");
+        ImageView imageView2 = new ImageView(rhymingWordsImg);
+        imageView2.setFitWidth(400);
+        imageView2.setFitHeight(90);
         Button RhymingWordsButton = new Button();
         RhymingWordsButton.setGraphic(imageView2);
-        RhymingWordsButton.setLayoutX(600);
-        RhymingWordsButton.setLayoutY(100);
+        RhymingWordsButton.setLayoutX(800);
+        RhymingWordsButton.setLayoutY(270);
 
-        ImageView imageView3 = new ImageView(image);
-        imageView3.setFitHeight(75);
-        imageView3.setFitWidth(150);
+        Image mixedSentenceImg = new Image("/icons/mixed-icon.png");
+        ImageView imageView3 = new ImageView(mixedSentenceImg);
+        imageView3.setFitWidth(400);
+        imageView3.setFitHeight(90);
         Button MixedSentenceButton = new Button();
         MixedSentenceButton.setGraphic(imageView3);
-        MixedSentenceButton.setLayoutX(200);
-        MixedSentenceButton.setLayoutY(450);
+        MixedSentenceButton.setLayoutX(800);
+        MixedSentenceButton.setLayoutY(380);
 
-        ImageView imageView4 = new ImageView(image);
-        imageView4.setFitHeight(75);
-        imageView4.setFitWidth(150);
+        Image pictureMatchImg = new Image("/icons/picture-match-icon.png");
+        ImageView imageView4 = new ImageView(pictureMatchImg);
+        imageView4.setFitWidth(400);
+        imageView4.setFitHeight(90);
         Button PictureMatchButton = new Button();
         PictureMatchButton.setGraphic(imageView4);
-        PictureMatchButton.setLayoutX(1000);
-        PictureMatchButton.setLayoutY(200);
+        PictureMatchButton.setLayoutX(800);
+        PictureMatchButton.setLayoutY(490);
 
-        ImageView imageView5 = new ImageView(image);
-        imageView5.setFitHeight(75);
-        imageView5.setFitWidth(150);
+        Image listenImg = new Image("/icons/listen-choose-icon.png");
+        ImageView imageView5 = new ImageView(listenImg);
+        imageView5.setFitWidth(400);
+        imageView5.setFitHeight(90);
         Button ListenButton = new Button();
         ListenButton.setGraphic(imageView5);
-        ListenButton.setLayoutX(1000);
-        ListenButton.setLayoutY(450);
+        ListenButton.setLayoutX(800);
+        ListenButton.setLayoutY(600);
 
         Pane layout = new Pane();
         setPaneBackground(layout, "/backgrounds/dreamleaf-menu.png");
+        layout.getChildren().add(logoImgView);
         layout.getChildren().add(FillInTheSentenceButton);
         layout.getChildren().add(RhymingWordsButton);
         layout.getChildren().add(MixedSentenceButton);
         layout.getChildren().add(PictureMatchButton);
         layout.getChildren().add(ListenButton);
-        layout.getChildren().add(imageView10);
 
         FillInTheSentenceButton.setOnAction(e -> {
             FillInTheSentence game = new FillInTheSentence();

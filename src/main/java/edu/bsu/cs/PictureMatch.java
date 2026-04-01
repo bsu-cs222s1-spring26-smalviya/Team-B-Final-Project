@@ -55,7 +55,7 @@ public class PictureMatch {
 
     public void show(Stage stage) throws Exception {
         this.primaryStage = stage;
-        primaryStage.setTitle("Picture Match - Kids Game");
+        primaryStage.setTitle("Dreamleaf Learning - Picture Match");
 
 
         mainLayout = new VBox(30);
