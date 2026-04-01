@@ -90,14 +90,18 @@ public class RhymingWords {
 
             layout.getChildren().addAll(option1, option2, option3);
 
-            //Click handlers
-            option1.setOnAction(ev -> handleAnswer(0, questionBox, scoreBox, option1, option2, option3, layout));
-            option2.setOnAction(ev -> handleAnswer(1, questionBox, scoreBox, option1, option2, option3, layout));
-            option3.setOnAction(ev -> handleAnswer(2, questionBox, scoreBox, option1, option2, option3, layout));
+            option1.setOnAction(ev -> handleAnswer(
+                    0, questionBox, scoreBox, option1, option2, option3, layout
+            ));
+            option2.setOnAction(ev -> handleAnswer(
+                    1, questionBox, scoreBox, option1, option2, option3, layout
+            ));
+            option3.setOnAction(ev -> handleAnswer(
+                    2, questionBox, scoreBox, option1, option2, option3, layout
+            ));
         });
 
-        //MUST GO LAST
-
+        GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
         Scene scene = new Scene(layout, 1400, 750);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rhyming Words");
@@ -117,7 +121,6 @@ public class RhymingWords {
 
         scoreBox.setText("Score: "+score);
 
-        //Next question
         if(!isFinished()){
 
             o1.setOnAction(e -> nextQuestion(questionBox, scoreBox, o1, o2, o3, layout));
@@ -161,24 +164,20 @@ public class RhymingWords {
         o3.setOnAction(e -> handleAnswer(2, questionBox, scoreBox, o1, o2, o3, layout));
     }
 
-    // Get current question
     public String getQuestion(){
         return questions[currentQuestion];
     }
 
-    // Get options
     public String[] getOptions(){
         return options[currentQuestion];
     }
 
-    // Check answer
     public boolean checkAnswer(int selectedOption){
         boolean correct = selectedOption == correctAnswers[currentQuestion];
         currentQuestion++;
         return correct;
     }
 
-    // Check if game finished
     public boolean isFinished(){
         return currentQuestion >= questions.length;
     }

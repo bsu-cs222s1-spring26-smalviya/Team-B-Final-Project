@@ -8,8 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.Scanner;
-
 public class ListenAndChoose {
     private final String spokenWord;
     private final String[] responseOptions;
@@ -148,6 +146,7 @@ public class ListenAndChoose {
     private void constructStage(Stage stage) {
         stage.setTitle("Listen And Choose");
         Pane layout = new Pane();
+        GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
         layout.getChildren().add(returnButton);
         layout.getChildren().add(listenButton);
         layout.getChildren().add(instructionLabel);

@@ -5,13 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.layout.Pane;
 
 public class GUI extends Application {
-    FillInTheSentence fillInTheSentence = new FillInTheSentence();
-
-
     public static void main(String[] args){
         launch(args);
     }
@@ -20,20 +17,22 @@ public class GUI extends Application {
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Main Menu");
 
+        Image image10 = new Image("/icons/dreamleaf-logo.png");
+        ImageView imageView10 = new ImageView(image10);
+        imageView10.setFitWidth(600);
+        imageView10.setFitHeight(150);
+        imageView10.setX(50);
+        imageView10.setY(50);
 
-
-        //BUTTONS // Fill in the sentence Button
-        Image image = new Image(getClass().getResource("/pink-cloud-button.png").toExternalForm());
+        Image image = new Image("/icons/pink-cloud-button.png");
         ImageView imageView1 = new ImageView(image);
-        imageView1.setFitWidth(150);   // adjust size
-        imageView1.setFitHeight(75);   // adjust size
+        imageView1.setFitWidth(150);
+        imageView1.setFitHeight(75);
         Button FillInTheSentenceButton = new Button();
         FillInTheSentenceButton.setGraphic(imageView1);
         FillInTheSentenceButton.setLayoutX(200);
         FillInTheSentenceButton.setLayoutY(200);
 
-
-        //Rhyming Words Button
         ImageView imageView2 = new ImageView(image);
         imageView2.setFitHeight(75);
         imageView2.setFitWidth(150);
@@ -42,7 +41,6 @@ public class GUI extends Application {
         RhymingWordsButton.setLayoutX(600);
         RhymingWordsButton.setLayoutY(100);
 
-        //Fix the mixed up Sentence
         ImageView imageView3 = new ImageView(image);
         imageView3.setFitHeight(75);
         imageView3.setFitWidth(150);
@@ -51,7 +49,6 @@ public class GUI extends Application {
         MixedSentenceButton.setLayoutX(200);
         MixedSentenceButton.setLayoutY(450);
 
-        //Word to Picture Match
         ImageView imageView4 = new ImageView(image);
         imageView4.setFitHeight(75);
         imageView4.setFitWidth(150);
@@ -60,7 +57,6 @@ public class GUI extends Application {
         PictureMatchButton.setLayoutX(1000);
         PictureMatchButton.setLayoutY(200);
 
-        //Listen And Choose
         ImageView imageView5 = new ImageView(image);
         imageView5.setFitHeight(75);
         imageView5.setFitWidth(150);
@@ -69,28 +65,19 @@ public class GUI extends Application {
         ListenButton.setLayoutX(1000);
         ListenButton.setLayoutY(450);
 
-
-
-
         Pane layout = new Pane();
-       // layout.getChildren().add(button);
+        setPaneBackground(layout, "/backgrounds/dreamleaf-menu.png");
         layout.getChildren().add(FillInTheSentenceButton);
         layout.getChildren().add(RhymingWordsButton);
         layout.getChildren().add(MixedSentenceButton);
         layout.getChildren().add(PictureMatchButton);
         layout.getChildren().add(ListenButton);
+        layout.getChildren().add(imageView10);
 
-
-
-
-
-
-
-        // Handle click
         FillInTheSentenceButton.setOnAction(e -> {
             FillInTheSentence game = new FillInTheSentence();
             try {
-                game.show(primaryStage);  // safe, non-static
+                game.show(primaryStage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -99,7 +86,7 @@ public class GUI extends Application {
         RhymingWordsButton.setOnAction(e -> {
             RhymingWords game = new RhymingWords();
             try {
-                game.show(primaryStage);  // safe, non-static
+                game.show(primaryStage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -108,7 +95,7 @@ public class GUI extends Application {
         MixedSentenceButton.setOnAction(e -> {
             MixedSentence game = new MixedSentence();
             try {
-                game.show(primaryStage);  // safe, non-static
+                game.show(primaryStage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -117,7 +104,7 @@ public class GUI extends Application {
         ListenButton.setOnAction(e -> {
             ListenAndChoose game = new ListenAndChoose();
             try {
-                game.show(primaryStage);  // safe, non-static
+                game.show(primaryStage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -126,18 +113,26 @@ public class GUI extends Application {
         PictureMatchButton.setOnAction(e -> {
             PictureMatch game = new PictureMatch();
             try {
-                game.show(primaryStage);  // safe, non-static
+                game.show(primaryStage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
 
-        //MUST GO LAST
         Scene scene = new Scene(layout, 1400, 750);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
 
-
-
+    public static void setPaneBackground(Pane layout, String filePath) {
+        Image img = new Image(filePath);
+        BackgroundImage backgroundImage = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(1, 1, true, true, false, false)
+        );
+        layout.setBackground(new Background(backgroundImage));
     }
 }

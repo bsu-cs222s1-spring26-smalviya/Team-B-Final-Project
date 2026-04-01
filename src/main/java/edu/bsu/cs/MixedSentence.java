@@ -15,7 +15,7 @@ public class MixedSentence{
         button.setText("Click me");
         Pane layout = new Pane();
 
-        Image image = new Image(getClass().getResource("/pink-cloud-button.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/icons/pink-cloud-button.png").toExternalForm());
         ImageView imageView3 = new ImageView(image);
         imageView3.setFitHeight(75);
         imageView3.setFitWidth(150);

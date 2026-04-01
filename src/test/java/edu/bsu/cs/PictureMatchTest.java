@@ -173,7 +173,7 @@ public class PictureMatchTest {
 
     @Test
     void testCloudButtonPathFormat() {
-        String cloudPath = "/pink-cloud-button.png";
+        String cloudPath = "/icons/pink-cloud-button.png";
         assertTrue(cloudPath.startsWith("/"),
                 "Cloud button path should start with / for resource loading");
         assertTrue(cloudPath.endsWith(".png"),

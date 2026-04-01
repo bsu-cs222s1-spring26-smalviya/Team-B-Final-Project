@@ -22,11 +22,11 @@ import java.util.*;
 public class PictureMatch {
 
     private static final String[] IMAGE_PATHS = {
-            "/Cat.png",
-            "/Dog.png",
-            "/House.png",
-            "/Tree.png",
-            "/Car.png"
+            "/picture_match/Cat.png",
+            "/picture_match/Dog.png",
+            "/picture_match/House.png",
+            "/picture_match/Tree.png",
+            "/picture_match/Car.png"
     };
 
     private static final String[] CORRECT_WORDS = {
@@ -41,8 +41,8 @@ public class PictureMatch {
             {"Truck", "Bike"}
     };
 
-    private static final String CORRECT_SOUND_PATH = "/Yay.mp3";
-    private static final String CLOUD_BUTTON_PATH = "/pink-cloud-button.png";
+    private static final String CORRECT_SOUND_PATH = "/audio/Yay.mp3";
+    private static final String CLOUD_BUTTON_PATH = "/icons/pink-cloud-button.png";
 
     private int currentSet = 0;
     private ImageView imageView;
