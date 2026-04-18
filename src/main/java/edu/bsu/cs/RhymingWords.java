@@ -2,197 +2,227 @@ package edu.bsu.cs;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
 public class RhymingWords {
 
-    int currentQuestion = 0;
-    int score = 0;
+    private final String targetWord;
+    private final String[] responseOptions;
+    private final int correctIndex;
+
+    Button returnButton = new Button();
+    Button option1Button = new Button();
+    Button option2Button = new Button();
+    Button option3Button = new Button();
+    Button replayButton = new Button();
+    Label instructionLabel = new Label();
+    Label targetWordLabel = new Label();
+    Label winLabel = new Label();
+    Label incorrectLabel = new Label();
+    Label scoreLabel = new Label();
 
     AudioClip correctSound;
     AudioClip wrongSound;
 
-    String[] questions = {
-            "Which word rhymes with CAT?",
-            "Which word rhymes with DOG?",
-            "Which word rhymes with BALL?",
-            "Which word rhymes with SUN?",
-            "Which word rhymes with BEE?",
-            "Which word rhymes with CAKE?",
-            "Which word rhymes with MOON?",
-            "Which word rhymes with STAR?",
-            "Which word rhymes with BLUE?",
-            "Which word rhymes with BED?",
-            "Which word rhymes with HOUSE?",
-            "Which word rhymes with PLAY"
-    };
+    int score = 0;
+    int roundsPlayed = 0;
 
-    String[][] options = {
-            {"Dog","Hat","Sun"},
-            {"Log","Tree","Book"},
-            {"Wall","Cup","Fish"},
-            {"Run","Tree","Cat"},
-            {"Tree","Ball","Hat"},
-            {"Bake","Ball","Dog"},
-            {"Spoon","Cup","Pen"},
-            {"Fish","Ball","Car"},
-            {"Shoe","Hat","Tree"},
-            {"Red","Ball","Cup"},
-            {"Mouse","Tree","Sun"},
-            {"Day","Dog","Book"}
-    };
+    public RhymingWords() {
+        RhymingWordsGameGenerator gameGen = new RhymingWordsGameGenerator();
+        targetWord = gameGen.getTargetWord();
+        responseOptions = gameGen.getResponseOptions();
+        correctIndex = gameGen.getCorrectIndex();
+    }
 
-    int[] correctAnswers = {1,0,0,0,0,0,0,3,0,0,0,0};
+    // Constructor to carry score across rounds
+    private RhymingWords(int score, int roundsPlayed) {
+        RhymingWordsGameGenerator gameGen = new RhymingWordsGameGenerator();
+        targetWord = gameGen.getTargetWord();
+        responseOptions = gameGen.getResponseOptions();
+        correctIndex = gameGen.getCorrectIndex();
+        this.score = score;
+        this.roundsPlayed = roundsPlayed;
+    }
 
-    // ✅ THIS METHOD IS CALLED FROM GUI
-    public void show(Stage primaryStage) {
-
-        // 🔊 UPDATED PATH (NOW INSIDE /audio/)
+    public void show(Stage primaryStage) throws Exception {
         URL correctURL = getClass().getResource("/audio/Yay.mp3");
         URL wrongURL = getClass().getResource("/audio/wrong.mp3");
 
-        if (correctURL != null) {
-            correctSound = new AudioClip(correctURL.toExternalForm());
-        } else {
-            System.out.println("❌ audio/Yay.mp3 not found!");
-        }
+        if (correctURL != null) correctSound = new AudioClip(correctURL.toExternalForm());
+        if (wrongURL != null) wrongSound = new AudioClip(wrongURL.toExternalForm());
 
-        if (wrongURL != null) {
-            wrongSound = new AudioClip(wrongURL.toExternalForm());
-        } else {
-            System.out.println("❌ audio/wrong.mp3 not found!");
-        }
-
-        currentQuestion = 0;
-        score = 0;
-
-        Pane layout = new Pane();
-        layout.setStyle("-fx-background-color: lightyellow;");
-
-        Button startButton = new Button("Start Game 🎮");
-        startButton.setLayoutX(600);
-        startButton.setLayoutY(300);
-        startButton.setStyle("-fx-font-size: 24px; -fx-background-color: yellow;");
-
-        layout.getChildren().add(startButton);
-
-        startButton.setOnAction(e -> {
-            layout.getChildren().clear();
-            loadQuestion(layout);
-        });
-
-        Scene scene = new Scene(layout, 1400, 750);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Rhyming Words");
+        constructUIElements(primaryStage);
+        constructStage(primaryStage);
         primaryStage.show();
     }
 
-    public void loadQuestion(Pane layout) {
+    private void constructUIElements(Stage stage) {
 
-        Button questionBox = new Button(getQuestion());
-        questionBox.setLayoutX(450);
-        questionBox.setLayoutY(150);
-        questionBox.setPrefWidth(500);
-        questionBox.setStyle("-fx-font-size: 20px; -fx-background-color: lightblue;");
-
-        String[] opts = getOptions();
-
-        Button o1 = new Button(opts[0]);
-        Button o2 = new Button(opts[1]);
-        Button o3 = new Button(opts[2]);
-
-        double centerX = 700;
-        double buttonWidth = 200;
-
-        o1.setPrefWidth(buttonWidth);
-        o2.setPrefWidth(buttonWidth);
-        o3.setPrefWidth(buttonWidth);
-
-        o1.setLayoutX(centerX - buttonWidth / 2);
-        o2.setLayoutX(centerX - buttonWidth / 2);
-        o3.setLayoutX(centerX - buttonWidth / 2);
-
-        o1.setLayoutY(300);
-        o2.setLayoutY(380);
-        o3.setLayoutY(460);
-
-        layout.getChildren().addAll(questionBox, o1, o2, o3);
-
-        o1.setOnAction(e -> handleAnswer(0, questionBox, layout, o1, o2, o3));
-        o2.setOnAction(e -> handleAnswer(1, questionBox, layout, o1, o2, o3));
-        o3.setOnAction(e -> handleAnswer(2, questionBox, layout, o1, o2, o3));
-    }
-
-    public void handleAnswer(int selected, Button questionBox,
-                             Pane layout, Button o1, Button o2, Button o3) {
-
-        boolean correct = checkAnswer(selected);
-
-        if (correct) {
-            score++;
-            questionBox.setText("🎉 Correct!");
-            if (correctSound != null) correctSound.play();
-        } else {
-            questionBox.setText("❌ Wrong!");
-            if (wrongSound != null) wrongSound.play();
-        }
-
-        o1.setDisable(true);
-        o2.setDisable(true);
-        o3.setDisable(true);
-
-        Button next = new Button("Next ➡");
-        next.setLayoutX(650);
-        next.setLayoutY(520);
-
-        layout.getChildren().add(next);
-
-        next.setOnAction(e -> {
-            layout.getChildren().clear();
-
-            if (!isFinished()) {
-                loadQuestion(layout);
-            } else {
-                Button end = new Button("🎉 Game Finished!\nScore: " + score);
-                end.setLayoutX(500);
-                end.setLayoutY(300);
-                end.setStyle("-fx-font-size: 22px;");
-
-                Button reset = new Button("Play Again 🔄");
-                reset.setLayoutX(600);
-                reset.setLayoutY(400);
-
-                layout.getChildren().addAll(end, reset);
-
-                reset.setOnAction(ev -> {
-                    currentQuestion = 0;
-                    score = 0;
-                    layout.getChildren().clear();
-                    loadQuestion(layout);
-                });
+        // Return button
+        returnButton.setText("🏠 Main Menu");
+        returnButton.setLayoutX(60.0);
+        returnButton.setLayoutY(685.0);
+        returnButton.setScaleX(1.5);
+        returnButton.setScaleY(1.5);
+        returnButton.setStyle(
+                "-fx-background-color: #ff9eb5; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-font-weight: bold; " +
+                        "-fx-background-radius: 20px;"
+        );
+        returnButton.setOnAction(e -> {
+            GUI mainMenu = new GUI();
+            try {
+                mainMenu.start(stage);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         });
+
+        // Instruction label
+        instructionLabel.setText("🎵 Find the word that RHYMES! 🎵");
+        instructionLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 28.0));
+        instructionLabel.setTextFill(Color.web("#7b2ff7"));
+        instructionLabel.setLayoutX(380);
+        instructionLabel.setLayoutY(50);
+
+        // Target word display
+        targetWordLabel.setText("✨ " + targetWord + " ✨");
+        targetWordLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 64.0));
+        targetWordLabel.setTextFill(Color.web("#ff6b35"));
+        targetWordLabel.setLayoutX(530.0);
+        targetWordLabel.setLayoutY(180.0);
+        targetWordLabel.setStyle(
+                "-fx-background-color: #fff9c4; " +
+                        "-fx-padding: 10px 30px; " +
+                        "-fx-background-radius: 20px;"
+        );
+
+        // Answer buttons
+        String[] buttonColors = {"#a8e6cf", "#ffd3b6", "#d4a5f5"};
+        String[] emojis = {"🌸", "🌈", "⭐"};
+        Button[] optionButtons = {option1Button, option2Button, option3Button};
+        double[] xPositions = {330.0, 580.0, 830.0};
+
+        for (int i = 0; i < 3; i++) {
+            optionButtons[i].setText(emojis[i] + " " + responseOptions[i]);
+            optionButtons[i].setLayoutX(xPositions[i]);
+            optionButtons[i].setLayoutY(480.0);
+            optionButtons[i].setScaleX(2.0);
+            optionButtons[i].setScaleY(2.0);
+            String color = buttonColors[i];
+            optionButtons[i].setStyle(
+                    "-fx-background-color: " + color + "; " +
+                            "-fx-font-size: 16px; " +
+                            "-fx-font-weight: bold; " +
+                            "-fx-background-radius: 15px; " +
+                            "-fx-text-fill: #333333;"
+            );
+            final int index = i;
+            optionButtons[i].setOnAction(e -> {
+                processUserInput(index);
+                optionButtons[index].setDisable(true);
+            });
+        }
+
+        // Play again button
+        replayButton.setText("🔄 Play Again!");
+        replayButton.setLayoutX(620.0);
+        replayButton.setLayoutY(420.0);
+        replayButton.setScaleX(2.5);
+        replayButton.setScaleY(2.5);
+        replayButton.setStyle(
+                "-fx-background-color: #69d2e7; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-size: 14px; " +
+                        "-fx-font-weight: bold; " +
+                        "-fx-background-radius: 20px;"
+        );
+        replayButton.setOnAction(e -> restartGame(stage));
+        replayButton.setVisible(false);
+
+        //  Win label
+        winLabel.setText("🎉 Woohoo! That's right! 🎉");
+        winLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 36.0));
+        winLabel.setTextFill(Color.web("#2e7d32"));
+        winLabel.setLayoutX(430.0);
+        winLabel.setLayoutY(310.0);
+        winLabel.setVisible(false);
+
+        //  Incorrect label
+        incorrectLabel.setText("🙈 Oops! Try again!");
+        incorrectLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 36.0));
+        incorrectLabel.setTextFill(Color.web("#c62828"));
+        incorrectLabel.setLayoutX(510.0);
+        incorrectLabel.setLayoutY(390.0);
+        incorrectLabel.setVisible(false);
+
+        // Score label
+        scoreLabel.setText("⭐ Score: " + score);
+        scoreLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 22.0));
+        scoreLabel.setTextFill(Color.web("#ff6b35"));
+        scoreLabel.setLayoutX(1200.0);
+        scoreLabel.setLayoutY(30.0);
     }
 
-    public String getQuestion() {
-        return questions[currentQuestion];
+    private void constructStage(Stage stage) {
+        stage.setTitle("Dreamleaf Learning - Rhyming Words 🎵");
+        Pane layout = new Pane();
+        layout.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffe4f0, #d4f0ff, #fffde0);");
+        layout.getChildren().addAll(
+                returnButton,
+                instructionLabel,
+                targetWordLabel,
+                option1Button,
+                option2Button,
+                option3Button,
+                replayButton,
+                winLabel,
+                incorrectLabel,
+                scoreLabel
+        );
+        Scene scene = new Scene(layout, 1400, 750);
+        stage.setScene(scene);
     }
 
-    public String[] getOptions() {
-        return options[currentQuestion];
+    private void processUserInput(int selectedIndex) {
+        if (selectedIndex == correctIndex) {
+            score++;
+            roundsPlayed++;
+            scoreLabel.setText("⭐ Score: " + score);
+            displayWin();
+        } else {
+            incorrectLabel.setVisible(true);
+            if (wrongSound != null) wrongSound.play();
+        }
     }
 
-    public boolean checkAnswer(int selectedOption) {
-        boolean correct = selectedOption == correctAnswers[currentQuestion];
-        currentQuestion++;
-        return correct;
+    private void displayWin() {
+        incorrectLabel.setVisible(false);
+        targetWordLabel.setVisible(false);
+        option1Button.setVisible(false);
+        option2Button.setVisible(false);
+        option3Button.setVisible(false);
+        winLabel.setVisible(true);
+        replayButton.setVisible(true);
+        if (correctSound != null) correctSound.play();
     }
 
-    public boolean isFinished() {
-        return currentQuestion >= questions.length;
+    private void restartGame(Stage stage) {
+        RhymingWords game = new RhymingWords(score, roundsPlayed);
+        try {
+            game.show(stage);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
