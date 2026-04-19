@@ -88,7 +88,7 @@ public class RhymingWords {
             }
         });
 
-        // Instruction label
+        // Instruction
         instructionLabel.setText("🎵 Find the word that RHYMES! 🎵");
         instructionLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 28.0));
         instructionLabel.setTextFill(Color.web("#7b2ff7"));
