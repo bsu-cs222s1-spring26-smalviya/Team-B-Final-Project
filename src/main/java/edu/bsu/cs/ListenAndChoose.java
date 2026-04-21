@@ -4,14 +4,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ListenAndChoose {
     private final String spokenWord;
+    private final NarrationFinder narrationFinder = new NarrationFinder();
     private final String[] responseOptions;
     private String userInput = "";
+    private MediaPlayer mediaPlayer;
 
     Button returnButton = new Button();
     Button listenButton = new Button();
@@ -21,7 +25,6 @@ public class ListenAndChoose {
     Button option4Button = new Button();
     Button replayButton = new Button();
     Label instructionLabel = new Label();
-    Label placeholderSpeachLabel = new Label();
     Label winLabel = new Label();
     Label incorrectLabel = new Label();
 
@@ -104,12 +107,6 @@ public class ListenAndChoose {
         instructionLabel.setLayoutX(300);
         instructionLabel.setLayoutY(50);
 
-        placeholderSpeachLabel.setText(String.format("\"%s\"", spokenWord));
-        placeholderSpeachLabel.setFont(new Font(16.0));
-        placeholderSpeachLabel.setLayoutX(665.0);
-        placeholderSpeachLabel.setLayoutY(320.0);
-        placeholderSpeachLabel.setVisible(false);
-
         winLabel.setText("That's correct!");
         winLabel.setFont(new Font(32.0));
         winLabel.setTextFill(Color.DARKGREEN);
@@ -140,7 +137,6 @@ public class ListenAndChoose {
         layout.getChildren().add(returnButton);
         layout.getChildren().add(listenButton);
         layout.getChildren().add(instructionLabel);
-        layout.getChildren().add(placeholderSpeachLabel);
         layout.getChildren().add(option1Button);
         layout.getChildren().add(option2Button);
         layout.getChildren().add(option3Button);
@@ -164,7 +160,6 @@ public class ListenAndChoose {
     private void displayWin() {
         incorrectLabel.setVisible(false);
         listenButton.setVisible(false);
-        placeholderSpeachLabel.setVisible(false);
         option1Button.setVisible(false);
         option2Button.setVisible(false);
         option3Button.setVisible(false);
@@ -173,9 +168,19 @@ public class ListenAndChoose {
         replayButton.setVisible(true);
     }
 
+    private void playSound(String path) {
+        if (path.isEmpty()) {
+            return;
+        }
+
+        Media sound = new Media(path);
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(1.0);
+        mediaPlayer.play();
+    }
+
     private void playSpokenWord() {
-        // Temporary. Will play the appropriate word as audio in a future iteration.
-        placeholderSpeachLabel.setVisible(true);
+        playSound(narrationFinder.getAudioPathFromString(spokenWord));
     }
 
     private void restartGame(Stage stage) {
