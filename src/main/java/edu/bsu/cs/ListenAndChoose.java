@@ -38,7 +38,7 @@ public class ListenAndChoose {
     }
 
     private void constructUIElements(Stage stage) {
-        returnButton.setText("Return to Main Menu");
+        returnButton.setText("🏠 Main Menu");
         returnButton.setLayoutX(70.0);
         returnButton.setLayoutY(690.0);
         returnButton.setScaleX(1.5);
@@ -54,19 +54,13 @@ public class ListenAndChoose {
         });
 
         listenButton.setText("LISTEN");
-        listenButton.setLayoutX(660.0);
-        listenButton.setLayoutY(250.0);
-        listenButton.setScaleX(3.0);
-        listenButton.setScaleY(3.0);
+        setButtonLayoutScale(listenButton, 660, 250, 3, 3);
         listenButton.setOnAction(e -> {
             playSpokenWord();
         });
 
         option1Button.setText(responseOptions[0]);
-        option1Button.setLayoutX(330.0);
-        option1Button.setLayoutY(500.0);
-        option1Button.setScaleX(2.0);
-        option1Button.setScaleY(2.0);
+        setButtonLayoutScale(option1Button, 330, 500, 2, 2);
         option1Button.setOnAction(e -> {
             userInput = responseOptions[0];
             processUserInput();
@@ -74,10 +68,7 @@ public class ListenAndChoose {
         });
 
         option2Button.setText(responseOptions[1]);
-        option2Button.setLayoutX(530.0);
-        option2Button.setLayoutY(500.0);
-        option2Button.setScaleX(2.0);
-        option2Button.setScaleY(2.0);
+        setButtonLayoutScale(option2Button, 530, 500, 2, 2);
         option2Button.setOnAction(e -> {
             userInput = responseOptions[1];
             processUserInput();
@@ -85,10 +76,7 @@ public class ListenAndChoose {
         });
 
         option3Button.setText(responseOptions[2]);
-        option3Button.setLayoutX(730.0);
-        option3Button.setLayoutY(500.0);
-        option3Button.setScaleX(2.0);
-        option3Button.setScaleY(2.0);
+        setButtonLayoutScale(option3Button, 730, 500, 2, 2);
         option3Button.setOnAction(e -> {
             userInput = responseOptions[2];
             processUserInput();
@@ -96,10 +84,7 @@ public class ListenAndChoose {
         });
 
         option4Button.setText(responseOptions[3]);
-        option4Button.setLayoutX(930.0);
-        option4Button.setLayoutY(500.0);
-        option4Button.setScaleX(2.0);
-        option4Button.setScaleY(2.0);
+        setButtonLayoutScale(option4Button, 930, 500, 2, 2);
         option4Button.setOnAction(e -> {
             userInput = responseOptions[3];
             processUserInput();
@@ -107,10 +92,7 @@ public class ListenAndChoose {
         });
 
         replayButton.setText("PLAY AGAIN");
-        replayButton.setLayoutX(650.0);
-        replayButton.setLayoutY(390.0);
-        replayButton.setScaleX(2.5);
-        replayButton.setScaleY(2.5);
+        setButtonLayoutScale(replayButton, 650, 390, 2.5, 2.5);
         replayButton.setOnAction(e -> {
             restartGame(stage);
         });
@@ -141,6 +123,14 @@ public class ListenAndChoose {
         incorrectLabel.setLayoutX(460.0);
         incorrectLabel.setLayoutY(400.0);
         incorrectLabel.setVisible(false);
+    }
+
+    private void setButtonLayoutScale(
+            Button button, double layoutX, double layoutY, double scaleX, double scaleY) {
+        button.setLayoutX(layoutX);
+        button.setLayoutY(layoutY);
+        button.setScaleX(scaleX);
+        button.setScaleY(scaleY);
     }
 
     private void constructStage(Stage stage) {

@@ -41,7 +41,7 @@ public class PictureMatch {
             {"Truck", "Bike"}
     };
 
-    private static final String CORRECT_SOUND_PATH = "/audio/Yay.mp3";
+    private static final String CORRECT_SOUND_PATH = "/audio/sound_effects/Yay.mp3";
     private static final String CLOUD_BUTTON_PATH = "/icons/pink-cloud-button.png";
 
     private int currentSet = 0;

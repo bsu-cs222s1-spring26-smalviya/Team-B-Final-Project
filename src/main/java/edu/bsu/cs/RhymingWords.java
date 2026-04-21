@@ -53,8 +53,8 @@ public class RhymingWords {
     }
 
     public void show(Stage primaryStage) throws Exception {
-        URL correctURL = getClass().getResource("/audio/Yay.mp3");
-        URL wrongURL = getClass().getResource("/audio/wrong.mp3");
+        URL correctURL = getClass().getResource("/audio/sound_effects/Yay.mp3");
+        URL wrongURL = getClass().getResource("/audio/sound_effects/wrong.mp3");
 
         if (correctURL != null) correctSound = new AudioClip(correctURL.toExternalForm());
         if (wrongURL != null) wrongSound = new AudioClip(wrongURL.toExternalForm());

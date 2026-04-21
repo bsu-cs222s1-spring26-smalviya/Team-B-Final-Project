@@ -24,7 +24,7 @@ public class FillInTheSentence {
             "She _____ under the moonlight.",
             "The stars _____ softly in the sky.",
             "He _____ quickly to avoid the rain.",
-            "Ball State Football team is ______."
+            "Ball State Football team is _____."
     };
 
     private String[] answers = {
@@ -147,7 +147,7 @@ public class FillInTheSentence {
 
         layout.getChildren().addAll(centerBox, returnButton);
 
-        stage.setScene(new Scene(layout, 800, 500));
+        stage.setScene(new Scene(layout, 1400, 750));
         stage.setTitle("Fill In The Sentence");
         stage.show();
     }
