@@ -15,8 +15,8 @@ public class MixedSentenceGameGenerator {
             {"The", "mop", "was", "wet"},
     };
 
-    private String[] originalSentence;
-    private String[] shuffledSentence;
+    final private String[] originalSentence;
+    final private String[] shuffledSentence;
 
     public MixedSentenceGameGenerator() {
         originalSentence = FULL_SENTENCES[(int) (Math.random() * FULL_SENTENCES.length)];

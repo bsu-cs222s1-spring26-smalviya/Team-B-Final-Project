@@ -186,7 +186,7 @@ public class RhymingWords {
                         "-fx-padding: 12 18;" +
                         "-fx-background-radius: 20px;");
         narrationButton.setOnAction(e -> {
-            playSound(NARRATION_FINDER.getAudioPathFromString("find the word that rhymes"), 1.0);
+            playSound(NARRATION_FINDER.getAudioPathFromString("find the word that rhymes"));
         });
     }
 
@@ -243,14 +243,14 @@ public class RhymingWords {
         }
     }
 
-    private void playSound(String path, double volume) {
+    private void playSound(String path) {
         if (path.isEmpty()) {
             return;
         }
 
         Media sound = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setVolume(volume);
+        mediaPlayer.setVolume(1.0);
         mediaPlayer.play();
     }
 }

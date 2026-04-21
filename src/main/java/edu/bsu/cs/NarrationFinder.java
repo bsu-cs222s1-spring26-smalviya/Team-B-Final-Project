@@ -22,6 +22,7 @@ public class NarrationFinder {
 
         try {
             URL soundUrl = getClass().getResource(pathToSend);
+            assert soundUrl != null;
             return soundUrl.toString();
         } catch (Exception e) {
             System.out.printf("Audio file \"%s\" could not be found.%n", pathToSend);

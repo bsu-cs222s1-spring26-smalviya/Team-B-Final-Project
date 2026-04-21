@@ -16,7 +16,7 @@ public class FillInTheSentence {
     final private NarrationFinder NARRATION_FINDER = new NarrationFinder();
     private int round = 0;
 
-    private String[] sentences = {
+    private final String[] sentences = {
             "The cat _____ over the moon.",
             "She _____ to the store.",
             "I _____ to school every day.",
@@ -29,7 +29,7 @@ public class FillInTheSentence {
             "Ball State Football team is _____."
     };
 
-    private String[] answers = {
+    final private String[] answers = {
             "jumped",
             "ran",
             "went",
@@ -42,7 +42,7 @@ public class FillInTheSentence {
             "bad"
     };
 
-    private String[][] choices = {
+    final private String[][] choices = {
             {"jumped", "slept", "red"},
             {"ran", "walked", "jumped"},
             {"went", "past", "dog"},
@@ -55,13 +55,13 @@ public class FillInTheSentence {
             {"bad", "amazing", "alright"}
     };
 
-    private Label sentenceLabel = new Label();
-    private Label blank = new Label("_____");
-    private Label result = new Label();
-    private VBox wordBox = new VBox(15);
+    private final Label sentenceLabel = new Label();
+    private final Label blank = new Label("_____");
+    private final Label result = new Label();
+    private final VBox wordBox = new VBox(15);
 
-    private Button returnButton = new Button("🏠 Main Menu");
-    private Button narrationButton = new Button();
+    private final Button returnButton = new Button("🏠 Main Menu");
+    private final Button narrationButton = new Button();
 
     public void show(Stage stage) {
 
@@ -151,7 +151,7 @@ public class FillInTheSentence {
                         "-fx-background-radius: 20px;" +
                         "-fx-font-weight: bold;");
         narrationButton.setOnAction(e -> {
-            playSound(NARRATION_FINDER.getAudioPathFromString(sentences[round]), 1.0);
+            playSound(NARRATION_FINDER.getAudioPathFromString(sentences[round]));
         });
 
 
@@ -213,14 +213,14 @@ public class FillInTheSentence {
         }
     }
 
-    private void playSound(String path, double volume) {
+    private void playSound(String path) {
         if (path.isEmpty()) {
             return;
         }
 
         Media sound = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setVolume(volume);
+        mediaPlayer.setVolume(1.0);
         mediaPlayer.play();
     }
 }

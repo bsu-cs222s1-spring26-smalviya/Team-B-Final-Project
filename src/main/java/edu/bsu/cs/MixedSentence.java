@@ -20,21 +20,21 @@ public class MixedSentence{
     private String playerSolution = "";
     private int wordsSelectedCount = 0;
 
-    private Label instructionLabel = new Label();
-    private Rectangle backgroundRect = new Rectangle();
-    private Label playerSolutionLabel = new Label();
-    private Label incorrectLabel = new Label();
-    private Label correctLabel = new Label();
+    final private Label instructionLabel = new Label();
+    final private Rectangle backgroundRect = new Rectangle();
+    final private Label playerSolutionLabel = new Label();
+    final private Label incorrectLabel = new Label();
+    final private Label correctLabel = new Label();
 
-    private Button returnButton = new Button();
-    private Button instructionListenButton = new Button();
-    private Button sentenceListenButton = new Button();
-    private Button resetButton = new Button();
-    private Button word1Button = new Button();
-    private Button word2Button = new Button();
-    private Button word3Button = new Button();
-    private Button word4Button = new Button();
-    private Button replayButton = new Button();
+    final private Button returnButton = new Button();
+    final private Button instructionListenButton = new Button();
+    final private Button sentenceListenButton = new Button();
+    final private Button resetButton = new Button();
+    final private Button word1Button = new Button();
+    final private Button word2Button = new Button();
+    final private Button word3Button = new Button();
+    final private Button word4Button = new Button();
+    final private Button replayButton = new Button();
 
     public void show(Stage primaryStage) throws Exception{
         constructUIElements(primaryStage);
@@ -198,6 +198,7 @@ public class MixedSentence{
             word4Button.setVisible(false);
             resetButton.setVisible(false);
             URL soundUrl = getClass().getResource("/audio/sound_effects/Yay.mp3");
+            assert soundUrl != null;
             playSound(soundUrl.toString(), 0.5);
         }
         else {

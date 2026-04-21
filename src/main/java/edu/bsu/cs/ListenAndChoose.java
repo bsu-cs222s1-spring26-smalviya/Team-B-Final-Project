@@ -177,6 +177,7 @@ public class ListenAndChoose {
         winLabel.setVisible(true);
         replayButton.setVisible(true);
         URL soundUrl = getClass().getResource("/audio/sound_effects/Yay.mp3");
+        assert soundUrl != null;
         playSound(soundUrl.toString(), 0.5);
     }
 
