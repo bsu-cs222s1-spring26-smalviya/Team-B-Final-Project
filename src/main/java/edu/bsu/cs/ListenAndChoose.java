@@ -141,17 +141,19 @@ public class ListenAndChoose {
         stage.setTitle("Dreamleaf Learning - Listen And Choose");
         Pane layout = new Pane();
         GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
-        layout.getChildren().add(returnButton);
-        layout.getChildren().add(listenButton);
-        layout.getChildren().add(instructionLabel);
-        layout.getChildren().add(option1Button);
-        layout.getChildren().add(option2Button);
-        layout.getChildren().add(option3Button);
-        layout.getChildren().add(option4Button);
-        layout.getChildren().add(replayButton);
-        layout.getChildren().add(winLabel);
-        layout.getChildren().add(incorrectLabel);
-        layout.getChildren().add(instructionListenButton);
+        layout.getChildren().addAll(
+                returnButton,
+                listenButton,
+                instructionLabel,
+                option1Button,
+                option2Button,
+                option3Button,
+                option4Button,
+                replayButton,
+                winLabel,
+                incorrectLabel,
+                instructionListenButton
+        );
         Scene scene = new Scene(layout, 1400, 750);
         stage.setScene(scene);
     }

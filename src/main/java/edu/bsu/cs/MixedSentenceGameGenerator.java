@@ -44,7 +44,7 @@ public class MixedSentenceGameGenerator {
         }
     }
 
-    private boolean isWordInArray(String wordToCheck, String[] array) {
+    public boolean isWordInArray(String wordToCheck, String[] array) {
         for (String word : array) {
             if (word != null){
                 if (word.equals(wordToCheck)) {
@@ -53,10 +53,6 @@ public class MixedSentenceGameGenerator {
             }
         }
         return false;
-    }
-
-    public String[] getOriginalSentence() {
-        return originalSentence;
     }
 
     public String getOriginalSentenceAsString() {

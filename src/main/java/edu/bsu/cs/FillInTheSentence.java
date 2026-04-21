@@ -6,12 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import static edu.bsu.cs.GUI.setPaneBackground;
 
 public class FillInTheSentence {
-
+    final private NarrationFinder NARRATION_FINDER = new NarrationFinder();
     private int round = 0;
 
     private String[] sentences = {
@@ -59,6 +61,7 @@ public class FillInTheSentence {
     private VBox wordBox = new VBox(15);
 
     private Button returnButton = new Button("🏠 Main Menu");
+    private Button narrationButton = new Button();
 
     public void show(Stage stage) {
 
@@ -137,6 +140,20 @@ public class FillInTheSentence {
             }
         });
 
+        narrationButton.setText("👂");
+        narrationButton.setLayoutX(160);
+        narrationButton.setLayoutY(90);
+        narrationButton.setStyle(
+                "-fx-background-color: #588157;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 18px;" +
+                        "-fx-padding: 12 18;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-font-weight: bold;");
+        narrationButton.setOnAction(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString(sentences[round]), 1.0);
+        });
+
 
         loadWords();
 
@@ -146,6 +163,7 @@ public class FillInTheSentence {
         centerBox.setLayoutY(100);
 
         layout.getChildren().addAll(centerBox, returnButton);
+        layout.getChildren().add(narrationButton);
 
         stage.setScene(new Scene(layout, 1400, 750));
         stage.setTitle("Fill In The Sentence");
@@ -193,5 +211,16 @@ public class FillInTheSentence {
         } else {
             result.setText("Try again!");
         }
+    }
+
+    private void playSound(String path, double volume) {
+        if (path.isEmpty()) {
+            return;
+        }
+
+        Media sound = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(volume);
+        mediaPlayer.play();
     }
 }

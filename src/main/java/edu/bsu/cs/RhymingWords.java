@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -13,7 +15,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class RhymingWords {
-
+    final private NarrationFinder NARRATION_FINDER = new NarrationFinder();
     private final String targetWord;
     private final String[] responseOptions;
     private final int correctIndex;
@@ -23,6 +25,7 @@ public class RhymingWords {
     Button option2Button = new Button();
     Button option3Button = new Button();
     Button replayButton = new Button();
+    Button narrationButton = new Button();
     Label instructionLabel = new Label();
     Label targetWordLabel = new Label();
     Label winLabel = new Label();
@@ -172,6 +175,19 @@ public class RhymingWords {
         scoreLabel.setTextFill(Color.web("#ff6b35"));
         scoreLabel.setLayoutX(1200.0);
         scoreLabel.setLayoutY(30.0);
+
+        narrationButton.setText("👂");
+        narrationButton.setLayoutX(900);
+        narrationButton.setLayoutY(50);
+        narrationButton.setStyle(
+                "-fx-background-color: #fcc5f2;" +
+                        "-fx-text-fill: #de00b6;" +
+                        "-fx-font-size: 18px;" +
+                        "-fx-padding: 12 18;" +
+                        "-fx-background-radius: 20px;");
+        narrationButton.setOnAction(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("find the word that rhymes"), 1.0);
+        });
     }
 
     private void constructStage(Stage stage) {
@@ -188,7 +204,8 @@ public class RhymingWords {
                 replayButton,
                 winLabel,
                 incorrectLabel,
-                scoreLabel
+                scoreLabel,
+                narrationButton
         );
         Scene scene = new Scene(layout, 1400, 750);
         stage.setScene(scene);
@@ -224,5 +241,16 @@ public class RhymingWords {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private void playSound(String path, double volume) {
+        if (path.isEmpty()) {
+            return;
+        }
+
+        Media sound = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(volume);
+        mediaPlayer.play();
     }
 }

@@ -16,6 +16,7 @@ public class NarrationFinder {
             string = string.replace(stringToRemove, "");
         }
         string = string.replace(" ", "-");
+        string = string.replace("_____", "blank");
 
         pathToSend += string + ".mp3";
 

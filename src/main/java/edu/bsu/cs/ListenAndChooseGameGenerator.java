@@ -38,7 +38,7 @@ public class ListenAndChooseGameGenerator {
         return wordContender;
     }
 
-    private boolean isWordInArray(String wordToCheck, String[] array) {
+    public boolean isWordInArray(String wordToCheck, String[] array) {
         for (String word : array) {
             if (word != null){
                 if (word.equals(wordToCheck)) {

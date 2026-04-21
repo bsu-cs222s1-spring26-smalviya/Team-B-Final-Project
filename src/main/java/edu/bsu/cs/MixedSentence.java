@@ -157,21 +157,22 @@ public class MixedSentence{
         Pane layout = new Pane();
         GUI.setPaneBackground(layout, "/backgrounds/dreamleaf-background.png");
 
-        layout.getChildren().add(returnButton);
-        layout.getChildren().add(instructionLabel);
-        layout.getChildren().add(instructionListenButton);
-        layout.getChildren().add(backgroundRect);
-        layout.getChildren().add(playerSolutionLabel);
-        layout.getChildren().add(sentenceListenButton);
-        layout.getChildren().add(word1Button);
-        layout.getChildren().add(word2Button);
-        layout.getChildren().add(word3Button);
-        layout.getChildren().add(word4Button);
-        layout.getChildren().add(resetButton);
-        layout.getChildren().add(correctLabel);
-        layout.getChildren().add(incorrectLabel);
-        layout.getChildren().add(replayButton);
-
+        layout.getChildren().addAll(
+                returnButton,
+                instructionLabel,
+                instructionListenButton,
+                backgroundRect,
+                playerSolutionLabel,
+                sentenceListenButton,
+                word1Button,
+                word2Button,
+                word3Button,
+                word4Button,
+                resetButton,
+                correctLabel,
+                incorrectLabel,
+                replayButton
+        );
         Scene scene = new Scene(layout, 1400, 750);
         stage.setScene(scene);
         stage.show();
