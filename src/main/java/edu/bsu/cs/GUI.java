@@ -6,9 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class GUI extends Application {
+    private final NarrationFinder NARRATION_FINDER = new NarrationFinder();
+    private MediaPlayer mediaPlayer;
+
     public static void main(String[] args){
         launch(args);
     }
@@ -87,6 +92,10 @@ public class GUI extends Application {
             }
         });
 
+        FillInTheSentenceButton.setOnMouseEntered(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("fill in the sentence"));
+        });
+
         RhymingWordsButton.setOnAction(e -> {
             RhymingWords game = new RhymingWords();
             try {
@@ -94,6 +103,10 @@ public class GUI extends Application {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+        });
+
+        RhymingWordsButton.setOnMouseEntered(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("rhyming words"));
         });
 
         MixedSentenceButton.setOnAction(e -> {
@@ -105,6 +118,10 @@ public class GUI extends Application {
             }
         });
 
+        MixedSentenceButton.setOnMouseEntered(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("mixed sentence"));
+        });
+
         ListenButton.setOnAction(e -> {
             ListenAndChoose game = new ListenAndChoose();
             try {
@@ -114,6 +131,10 @@ public class GUI extends Application {
             }
         });
 
+        ListenButton.setOnMouseEntered(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("listen and choose"));
+        });
+
         PictureMatchButton.setOnAction(e -> {
             PictureMatch game = new PictureMatch();
             try {
@@ -121,6 +142,10 @@ public class GUI extends Application {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+        });
+
+        PictureMatchButton.setOnMouseEntered(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("picture match"));
         });
 
         Scene scene = new Scene(layout, 1400, 750);
@@ -138,5 +163,20 @@ public class GUI extends Application {
                 new BackgroundSize(1, 1, true, true, false, false)
         );
         layout.setBackground(new Background(backgroundImage));
+    }
+
+    private void playSound(String path) {
+        if (path.isEmpty()) {
+            return;
+        }
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        }
+        Media sound = new Media(path);
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setVolume(1.0);
+        mediaPlayer.play();
     }
 }

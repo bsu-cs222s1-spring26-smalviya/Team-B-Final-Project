@@ -8,14 +8,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class ListenAndChoose {
+    private final NarrationFinder NARRATION_FINDER = new NarrationFinder();
     private final String spokenWord;
-    private final NarrationFinder narrationFinder = new NarrationFinder();
     private final String[] responseOptions;
     private String userInput = "";
-    private MediaPlayer mediaPlayer;
 
     Button returnButton = new Button();
     Button listenButton = new Button();
@@ -42,11 +42,7 @@ public class ListenAndChoose {
 
     private void constructUIElements(Stage stage) {
         returnButton.setText("🏠 Main Menu");
-        returnButton.setLayoutX(70.0);
-        returnButton.setLayoutY(690.0);
-        returnButton.setScaleX(1.5);
-        returnButton.setScaleY(1.5);
-
+        setButtonLayoutScale(returnButton, 70, 690, 1.5, 1.5);
         returnButton.setOnAction(e -> {
             GUI mainMenu = new GUI();
             try {
@@ -103,19 +99,19 @@ public class ListenAndChoose {
 
         instructionLabel.setText("Click the big button to listen to the word, " +
                 "and click the word that you heard!");
-        instructionLabel.setFont(new Font(24.0));
+        instructionLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 24));
         instructionLabel.setLayoutX(300);
         instructionLabel.setLayoutY(50);
 
         winLabel.setText("That's correct!");
-        winLabel.setFont(new Font(32.0));
+        winLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 32));
         winLabel.setTextFill(Color.DARKGREEN);
         winLabel.setLayoutX(590.0);
         winLabel.setLayoutY(300.0);
         winLabel.setVisible(false);
 
         incorrectLabel.setText("That's not quite right... try again!");
-        incorrectLabel.setFont(new Font(32.0));
+        incorrectLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 32));
         incorrectLabel.setTextFill(Color.DARKRED);
         incorrectLabel.setLayoutX(460.0);
         incorrectLabel.setLayoutY(400.0);
@@ -128,6 +124,8 @@ public class ListenAndChoose {
         button.setLayoutY(layoutY);
         button.setScaleX(scaleX);
         button.setScaleY(scaleY);
+        button.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, button.getFont().getSize()));
+        button.setStyle("-fx-background-color: #fcf6c5;");
     }
 
     private void constructStage(Stage stage) {
@@ -174,13 +172,13 @@ public class ListenAndChoose {
         }
 
         Media sound = new Media(path);
-        mediaPlayer = new MediaPlayer(sound);
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setVolume(1.0);
         mediaPlayer.play();
     }
 
     private void playSpokenWord() {
-        playSound(narrationFinder.getAudioPathFromString(spokenWord));
+        playSound(NARRATION_FINDER.getAudioPathFromString(spokenWord));
     }
 
     private void restartGame(Stage stage) {
