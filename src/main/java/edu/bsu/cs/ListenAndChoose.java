@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 public class ListenAndChoose {
     private final NarrationFinder NARRATION_FINDER = new NarrationFinder();
     private final String spokenWord;
@@ -24,6 +26,7 @@ public class ListenAndChoose {
     Button option3Button = new Button();
     Button option4Button = new Button();
     Button replayButton = new Button();
+    Button instructionListenButton = new Button();
     Label instructionLabel = new Label();
     Label winLabel = new Label();
     Label incorrectLabel = new Label();
@@ -100,8 +103,14 @@ public class ListenAndChoose {
         instructionLabel.setText("Click the big button to listen to the word, " +
                 "and click the word that you heard!");
         instructionLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 24));
-        instructionLabel.setLayoutX(300);
+        instructionLabel.setLayoutX(150);
         instructionLabel.setLayoutY(50);
+
+        instructionListenButton.setText("👂");
+        setButtonLayoutScale(instructionListenButton, 1100, 50, 2.0, 2.0);
+        instructionListenButton.setOnAction(e -> {
+            playSound(NARRATION_FINDER.getAudioPathFromString("click the button"), 1.0);
+        });
 
         winLabel.setText("That's correct!");
         winLabel.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 32));
@@ -142,6 +151,7 @@ public class ListenAndChoose {
         layout.getChildren().add(replayButton);
         layout.getChildren().add(winLabel);
         layout.getChildren().add(incorrectLabel);
+        layout.getChildren().add(instructionListenButton);
         Scene scene = new Scene(layout, 1400, 750);
         stage.setScene(scene);
     }
@@ -164,21 +174,23 @@ public class ListenAndChoose {
         option4Button.setVisible(false);
         winLabel.setVisible(true);
         replayButton.setVisible(true);
+        URL soundUrl = getClass().getResource("/audio/sound_effects/Yay.mp3");
+        playSound(soundUrl.toString(), 0.5);
     }
 
-    private void playSound(String path) {
+    private void playSound(String path, double volume) {
         if (path.isEmpty()) {
             return;
         }
 
         Media sound = new Media(path);
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setVolume(1.0);
+        mediaPlayer.setVolume(volume);
         mediaPlayer.play();
     }
 
     private void playSpokenWord() {
-        playSound(NARRATION_FINDER.getAudioPathFromString(spokenWord));
+        playSound(NARRATION_FINDER.getAudioPathFromString(spokenWord), 1.0);
     }
 
     private void restartGame(Stage stage) {
